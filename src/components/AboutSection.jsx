@@ -30,7 +30,7 @@ export const AboutSection = () => {
               </a>
 
               <a
-                href=""
+                href="#waitlist"
                 className="px-6 py-2 rounded-full border border-[hsl(var(--foreground))] text-[hsl(var(--foreground))] hover:bg-[hsl(var(--foreground)/0.1)] transition-colors duration-300"
               >
                 Join the Waitlist
