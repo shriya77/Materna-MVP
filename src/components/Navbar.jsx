@@ -35,7 +35,7 @@ export const Navbar = () => {
           href="#hero"
         >
           <img
-            src="public/Logo.png"
+            src="/Logo.png"
             alt="Materna Logo"
             className="h-10 w-10.5 mr-1.5"
           />
