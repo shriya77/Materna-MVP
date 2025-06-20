@@ -16,18 +16,45 @@ export const ContactSection = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const message = formData.get("message");
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbxC4tznrq8k0NJAC3IIhsOtgVPE0ChiTwV-eoVks0RpSDqu2kCRphdjSa2YQrKvB8g0oA/exec",
+        {
+          method: "POST",
+          body: new URLSearchParams({ name, email, message }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (result.result === "success") {
+        toast({
+          title: "Message sent!",
+          description:
+            "Thank you for your message. We'll get back to you within 2 business days.",
+        });
+      } else {
+        throw new Error(result.message || "Unknown error");
+      }
+    } catch (error) {
       toast({
-        title: "Message sent!",
-        description: "Thank you for your message. We'll get back to you within 2 business days.",
+        title: "Something went wrong.",
+        description: error.message,
+        variant: "destructive",
       });
-      setIsSubmitting(false);
-    }, 1500);
+    }
+
+    setIsSubmitting(false);
   };
   return (
     <section id="contact" className="py-24 px-4 relative bg-secondary/30">
